@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<form class="form-signin">
+		<h1>Contacts</h1>
+
+			<ul>
+				{% for contact in object_list %}
+					<li class="contact">
+					<a href="{{ contact.get_absolute_url }}">{{ contact }}</a>
+					(<a href="{% url "contacts-edit" pk=contact.id %}">edit</a>)
+					</li>
+				{% endfor %} 
+			</ul>
+	
+		<a href="{% url "contacts-new" %}">Add contact</a>
+	</form>
+</div>
+
+{% endblock %}

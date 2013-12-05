@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+	<!--<form class="form-signin">-->
+	<form class="form-signin" action="{% url "contacts-edit-addresses" pk=contact.id %}" method="POST">
+
+		<h1>Edit Addresses</h1>		
+
+		<p>Editing addresses for {{ contact }}</p>
+
+			<!--<form class="form-signin" action="{% url "contacts-edit-addresses" pk=contact.id %}" method="POST>This form was shifted up instead-->
+    		{% csrf_token %}
+    		{{ form.management_form }} <!--This is a set of hidden fields that provide some accounting information to django-->
+    		{% for address_form in form %}
+
+        	<ul>
+        		{{ address_form.as_ul }}
+        	</ul>
+
+    		{% endfor %}
+
+    		<input type="submit" value="Save" />
+		<!--</form>-->
+		<p>
+		<a href="{% url "contacts-edit" pk=contact.id %}">back to Edit</a>
+		</p>
+	</form>
+</div>
+{% endblock %}

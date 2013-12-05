@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" >
+  <form class="form-signin" action="{{ action }}" method="POST" >
+        {% if contact.id %}
+          <h1>Edit Contact</h1>
+        {% else %}
+          <h1>Add Contact</h1>
+        {% endif %}
+
+    <!--<form class="container" action="{{ action }}" method="POST">-->
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+          <ul>
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+            {% endif %}
+            {% for field in form %}
+      <div id="{{ field.auto_id }}_container">
+          {{ field.help_text }}
+            <div>
+              {{ field.label_tag }} {{ field }}
+            </div>
+          <div id="{{ field.auto_id }}_errors">
+            {{ field.errors }}
+          </div>
+      </div>
+          {% endfor %}
+        <p>
+        <input id="save_contact" type="submit" value="Save" />
+        </p>
+    <!--</form>-->
+
+      {% if contact.id %}
+      <p>
+        <a href="{% url "contacts-edit-addresses" pk=contact.id %}">
+      Edit Addresses
+        </a>
+      </p>
+
+      <p><a href="{% url "contacts-delete" pk=contact.id %}">Delete</a></p>
+      {% endif %}
+
+      <a href="{% url "contacts-list" %}">back to list</a>
+  </form>
+</div>
+
+{% endblock %}

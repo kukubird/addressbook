@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<form class="form-signin" action="{% url "contacts-delete" pk=contact.id %}" method="POST">
+
+		<h1>Delete Contact</h1>
+
+		<p>Are you sure you want to delete the contact {{ contact }}?</p>
+
+		<!--<form action="{% url "contacts-delete" pk=contact.id %}" method="POST"> this form has been commented out because it is being used above and it has the class forn signin so that it cd style the form as well-->
+		{% csrf_token %}
+
+		<input type="submit" value="Yes, delete." />
+		<a href="{% url "contacts-list" %}">No, cancel.</a>
+</form>
+
+{% endblock %}
